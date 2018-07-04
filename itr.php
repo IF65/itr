@@ -8,6 +8,30 @@
 	$request  = json_decode($rowData, true);
 
 	include(__DIR__.'/Database/bootstrap.php');
+	include(__DIR__.'/vendor/apache/log4php/src/main/php/Logger.php');
+	
+	$logConfig = [
+					'appenders' => [
+										'default' => [
+														'class' => 'LoggerAppenderPDO',
+														'params' => [
+																		'dsn' => 'mysql:host=10.11.14.78;dbname=log',
+																		'user' => 'root',
+																		'password' => 'mela',
+																		'table' => 'logPhpScript',
+																	],
+													],
+									],
+					'rootLogger' => [
+										'level' => 'info',
+										'appenders' => [
+															'default'
+														],
+									],
+				];
+	
+	Logger::configure($logConfig);
+	$logger = Logger::getLogger("itr");
 
 	use Database\Tables\Vendite;
 	use Database\Tables\Aree;
@@ -54,6 +78,7 @@
 	}
 
 	if ($request["functionName"] == "aggiornaIncassi") {
+		$logger->info("Richiesta di aggiornamento incassi: ".$_SERVER['REMOTE_ADDR']);
 
 		$query = array();
 		$query["draw"] = $request['draw'];

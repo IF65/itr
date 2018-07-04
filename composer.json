@@ -1,0 +1,13 @@
+{
+    "name": "if65/itr",
+    "description": "incassi in tempo reale lato server",
+    "authors": [
+        {
+            "name": "Marco Gnecchi",
+            "email": "marco.gnecchi@icloud.com"
+        }
+    ],
+    "require": {
+        "apache/log4php": "2.3.0"	
+    }
+}
